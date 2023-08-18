@@ -14,18 +14,24 @@ defmodule Caching.CachingGs do
 
   # server
   def init(state) do
+    :ets.new(:cities_cache, [:set, :named_table, :public, read_concurrency: true, write_concurrency: true])
     # do not block the init
     {:ok, state, {:continue, :get_from_db}}
   end
 
-  def handle_continue(:get_from_db, _state) do
+  def handle_continue(:get_from_db, state) do
     # pegar do banco
-    new_state = Location.list_cities()
-    {:noreply, new_state}
+    cities = Location.list_cities()
+    :ets.insert(:cities_cache, {:cities, cities})
+    {:noreply, state}
   end
 
   def handle_call(:cities, _from, state) do
-    {:reply, state, state}
+    reply = case :ets.lookup(:cities_cache, :cities) do
+      [] -> []
+      [{_key, value}] -> value
+    end
+    {:reply, reply, state}
   end
 
 end
