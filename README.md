@@ -102,7 +102,7 @@ defmodule Caching.CachingGs do
 end
 ```
 
-In the file lib/caching/application.ex add `Caching.CachingGs` in the children function
+In the file lib/caching/application.ex add `Caching.CachingGs` in the children list
 
 ```elixir
   def start(_type, _args) do
