@@ -9,7 +9,11 @@ defmodule Caching.CachingGs do
   end
 
   def cities do
-    GenServer.call(__MODULE__, :cities)
+    reply = case :ets.lookup(:cities_cache, :cities) do
+      [] -> []
+      [{_key, value}] -> value
+    end
+    reply
   end
 
   # server
@@ -26,12 +30,12 @@ defmodule Caching.CachingGs do
     {:noreply, state}
   end
 
-  def handle_call(:cities, _from, state) do
-    reply = case :ets.lookup(:cities_cache, :cities) do
-      [] -> []
-      [{_key, value}] -> value
-    end
-    {:reply, reply, state}
-  end
+  # def handle_call(:cities, _from, state) do
+  #   reply = case :ets.lookup(:cities_cache, :cities) do
+  #     [] -> []
+  #     [{_key, value}] -> value
+  #   end
+  #   {:reply, reply, state}
+  # end
 
 end
