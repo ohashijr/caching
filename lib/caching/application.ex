@@ -17,9 +17,10 @@ defmodule Caching.Application do
       # Start Finch
       {Finch, name: Caching.Finch},
       # Start the Endpoint (http/https)
-      CachingWeb.Endpoint
+      CachingWeb.Endpoint,
       # Start a worker by calling: Caching.Worker.start_link(arg)
       # {Caching.Worker, arg}
+      Caching.CachingGs
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

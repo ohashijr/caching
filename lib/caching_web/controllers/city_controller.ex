@@ -3,9 +3,11 @@ defmodule CachingWeb.CityController do
 
   alias Caching.Location
   alias Caching.Location.City
+  alias Caching.CachingGs
 
   def index(conn, _params) do
-    cities = Location.list_cities()
+    # cities = Location.list_cities()
+    cities = CachingGs.cities()
     render(conn, :index, cities: cities)
   end
 
