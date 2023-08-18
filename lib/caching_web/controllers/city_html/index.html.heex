@@ -1,0 +1,23 @@
+<.header>
+  Listing Cities
+  <:actions>
+    <.link href={~p"/cities/new"}>
+      <.button>New City</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="cities" rows={@cities} row_click={&JS.navigate(~p"/cities/#{&1}")}>
+  <:col :let={city} label="Name"><%= city.name %></:col>
+  <:action :let={city}>
+    <div class="sr-only">
+      <.link navigate={~p"/cities/#{city}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/cities/#{city}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={city}>
+    <.link href={~p"/cities/#{city}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

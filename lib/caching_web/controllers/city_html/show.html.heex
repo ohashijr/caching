@@ -1,0 +1,15 @@
+<.header>
+  City <%= @city.id %>
+  <:subtitle>This is a city record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/cities/#{@city}/edit"}>
+      <.button>Edit city</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @city.name %></:item>
+</.list>
+
+<.back navigate={~p"/cities"}>Back to cities</.back>

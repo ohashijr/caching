@@ -17,6 +17,8 @@ defmodule CachingWeb.Router do
   scope "/", CachingWeb do
     pipe_through :browser
 
+    resources "/cities", CityController
+
     get "/", PageController, :home
   end
 
